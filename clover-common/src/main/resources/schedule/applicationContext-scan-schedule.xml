@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd"
+	default-lazy-init="true">
+
+	<description>Schedule配置</description>
+
+	<beans profile="production,development">
+
+		<!-- 本地Schduler, 非集群. -->
+		<bean id="localQuartzScheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+			<property name="triggers">
+				<list>
+					<!-- <ref bean="cronTriggerTest1" /> -->
+					<!-- <ref bean="cronTriggerTest2" /> -->
+				</list>
+			</property>
+			<property name="quartzProperties">
+				<props>
+					<prop key="org.quartz.threadPool.threadNamePrefix">${schedule.threadNamePrefix}</prop>
+					<prop key="org.quartz.threadPool.threadCount">${schedule.threadCount}</prop>
+				</props>
+			</property>
+			<property name="startupDelay" value="${schedule.startupDelay}" />
+		</bean>
+
+		<!-- <bean id="cronTriggerTest1" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean"> -->
+		<!-- <property name="jobDetail" ref="cronJobDetailTest1" /> -->
+		<!-- <property name="cronExpression" value="*/40 * * * * ?" /> -->
+		<!-- </bean> -->
+		<!-- <bean id="cronJobDetailTest1" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean"> -->
+		<!-- <property name="targetObject" ref="test1Service" /> -->
+		<!-- <property name="targetMethod" value="execute" /> -->
+		<!-- <property name="concurrent" value="true" /> -->
+		<!-- </bean> -->
+
+		<!-- <bean id="cronTriggerTest2" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean"> -->
+		<!-- <property name="jobDetail" ref="cronJobDetailTest2" /> -->
+		<!-- <property name="cronExpression" value="*/30 * * * * ?" /> -->
+		<!-- </bean> -->
+		<!-- <bean id="cronJobDetailTest2" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean"> -->
+		<!-- <property name="targetObject" ref="test2Service" /> -->
+		<!-- <property name="targetMethod" value="execute" /> -->
+		<!-- <property name="concurrent" value="true" /> -->
+		<!-- </bean> -->
+
+		<!-- <bean id="test1Service" class="org.lop.test.Test1Service" /> -->
+		<!-- <bean id="test2Service" class="org.lop.test.Test2Service" /> -->
+
+	</beans>
+
+</beans>

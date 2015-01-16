@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>clover-client</artifactId>
+	<packaging>jar</packaging>
+	<name>Lop :: Clover :: ${project.version} :: Client</name>
+
+	<parent>
+		<groupId>org.lop</groupId>
+		<artifactId>clover-parent</artifactId>
+		<version>0.5.0.RELEASE</version>
+		<relativePath>../pom.xml</relativePath>
+	</parent>
+
+	<dependencies>
+		<!-- Common. -->
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>clover-common</artifactId>
+		</dependency>
+	</dependencies>
+
+</project>

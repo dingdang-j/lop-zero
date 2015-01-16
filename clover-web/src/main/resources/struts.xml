@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+        "http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+
+	<!-- 采用Annotation配置, 使用Convention插件, 实现约定大于配置的零配置文件风格, 特殊的Result需要在Action类中设置@Result. -->
+
+	<constant name="struts.convention.default.parent.package" value="crud-default" />
+	<constant name="struts.convention.package.locators" value="web" />
+	<constant name="struts.convention.result.path" value="/WEB-INF/views" />
+	<constant name="struts.action.excludePattern" value="/static/.*?" />
+	<constant name="struts.enable.DynamicMethodInvocation" value="true" />
+
+	<!-- 用于CRUD Action的parent package. -->
+	<package name="crud-default" extends="convention-default">
+		<!-- <package name="crud-default" extends="convention-default,jasperreports-default"> -->
+		<!-- 基于paramsPrepareParamsStack, 增加store interceptor保证actionMessage在redirect后不会丢失. -->
+		<interceptors>
+			<interceptor-stack name="crudStack">
+				<interceptor-ref name="store">
+					<param name="operationMode">AUTOMATIC</param>
+				</interceptor-ref>
+				<interceptor-ref name="paramsPrepareParamsStack" />
+			</interceptor-stack>
+		</interceptors>
+
+		<default-interceptor-ref name="crudStack" />
+
+		<!-- 全局结果集 -->
+		<!-- <global-results> -->
+		<!-- <result name="success">/WEB-INF/pages/common/success.jsp</result> -->
+		<!-- <result name="error">/WEB-INF/pages/common/error.jsp</result> -->
+		<!-- <result name="exception">/WEB-INF/pages/common/exception.jsp</result> -->
+		<!-- </global-results> -->
+
+		<!-- 异常结果集 -->
+		<!-- <global-exception-mappings> -->
+		<!-- <exception-mapping name="exception" result="exception" exception="java.lang.Exception"></exception-mapping> -->
+		<!-- </global-exception-mappings> -->
+
+	</package>
+
+</struts>

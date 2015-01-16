@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!-- 日志组件启动时, 打印调试信息, 并监控此文件变化, 周期60秒. -->
+<configuration scan="true" scanPeriod="60 seconds" debug="true">
+
+	<property resource="log/log.properties" />
+
+	<contextName>${context.name}</contextName>
+
+	<!--针对jul的性能优化. -->
+	<contextListener class="ch.qos.logback.classic.jul.LevelChangePropagator">
+		<resetJUL>true</resetJUL>
+	</contextListener>
+
+	<!-- CONSOLE. -->
+	<appender name="consoleLog" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{0}:%L- %msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<!-- INFO. -->
+	<appender name="infoLog" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${log.path}/${context.name}-info.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${log.path}/${context.name}-info.log.%d{yyyy-MM-dd}.%i</fileNamePattern>
+			<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>1024MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+		<encoder>
+			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{0}:%L- %msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<!-- DIGEST. -->
+	<appender name="digestLog" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${log.path}/${context.name}-digest.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${log.path}/${context.name}-digest.log.%d{yyyy-MM-dd}.%i</fileNamePattern>
+			<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>1024MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+		<encoder>
+			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} - %msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<!-- ERROR. -->
+	<appender name="errorLog" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${log.path}/${context.name}-error.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${log.path}/${context.name}-error.log.%d{yyyy-MM-dd}.%i</fileNamePattern>
+			<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>1024MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<level>ERROR</level>
+		</filter>
+		<encoder>
+			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{0}:%L- %msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<!-- 根日志. -->
+	<root level="${log.level}">
+		<appender-ref ref="consoleLog" />
+		<appender-ref ref="infoLog" />
+		<appender-ref ref="errorLog" />
+	</root>
+
+	<!-- 摘要日志. -->
+	<logger name="digest" level="info">
+		<appender-ref ref="digestLog" />
+	</logger>
+
+	<!-- Project. -->
+	<logger name="com.hz" level="${log.level}" />
+
+	<!-- Dubbo. -->
+	<logger name="com.alibaba.dubbo.monitor.dubbo.DubboMonitor" level="WARN" />
+
+</configuration>
