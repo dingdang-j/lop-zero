@@ -20,7 +20,7 @@
 				if ( page.hasPreviousPage() ) {
 			%>
 			<li><a href="?page=0&${queryParams }" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
-			<li><a href="?page=${current - 1 }&${queryParams }" aria-label="Previous"><span aria-hidden="true">&lsaquo;</span></a></li>
+			<li><a href="?page=${current - 2 }&${queryParams }" aria-label="Previous"><span aria-hidden="true">&lsaquo;</span></a></li>
 			<%
 				} else {
 			%>
