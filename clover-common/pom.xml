@@ -52,6 +52,12 @@
 			<groupId>net.spy</groupId>
 			<artifactId>spymemcached</artifactId>
 		</dependency>
+
+		<!-- Jedis. -->
+		<dependency>
+			<groupId>redis.clients</groupId>
+			<artifactId>jedis</artifactId>
+		</dependency>
 	</dependencies>
 
 </project>
